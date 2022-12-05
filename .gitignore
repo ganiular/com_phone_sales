@@ -2,11 +2,6 @@
 /env 
 /venv
 
-/media
-
-# exclude database file
-/db.sqlite3
-
 # exclude python byte code
 __pycache__
 

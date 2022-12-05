@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+
+{% block title %}Group Members{% endblock %} 
+
+{% block main %} 
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div> 
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                    <li><a href="{% url 'product' %}">Product</a></li>
+                    <li><a href="{% url 'cart' %}">Cart</a></li>
+                    <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                    <li class="active"><a href="{% url 'contact' %}">Group Members</a></li>
+                </ul>
+            </div>  
+        </div>
+    </div>
+</div> <!-- End mainmenu area -->
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Project Group Members</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Page title area -->
+
+<table id="mbt">
+    <tr><th>SN</th><th>Name</th><th>Registration Number</th></tr>
+    {% for member in members %} 
+    <tr>
+        <td>{{member.id}}</td>
+        <td>{{member.last_name}} {{member.first_name}} {{member.other_name}}</td>
+        <td>{{member.reg_number}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<style>
+    #mbt{
+        margin: 24px auto;
+        text-transform: uppercase;
+    }
+    #mbt tr:nth-child(odd) {
+        background-color: #d8d8ec;
+    }
+    #mbt th{
+        background-color: #5a88ca;
+        color: white;
+    }
+    #mbt th, #mbt td{
+        padding: 12px 24px;
+    }
+</style>
+{% endblock %} 
