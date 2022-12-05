@@ -2,6 +2,8 @@
 /env 
 /venv
 
+/media
+
 # exclude database file
 /db.sqlite3
 

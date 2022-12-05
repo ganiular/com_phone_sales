@@ -58,28 +58,28 @@
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                            <img src="{% static 'img/product-thumb-1.jpg' %}" class="recent-thumb" alt="">
                             <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                            <img src="{% static 'img/product-thumb-1.jpg' %}" class="recent-thumb" alt="">
                             <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                            <img src="{% static 'img/product-thumb-1.jpg' %}" class="recent-thumb" alt="">
                             <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                            <img src="{% static 'img/product-thumb-1.jpg' %}" class="recent-thumb" alt="">
                             <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
@@ -102,7 +102,7 @@
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <form method="post" action="#">
+                            <form method="get" action="{% url 'checkout' %}"> 
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                         <tr>
@@ -115,35 +115,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for item in cart_items %}
                                         <tr class="cart_item">
                                             <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="#">×</a> 
+                                                <a title="Remove this item" class="remove" href="{% url 'remove_cart_item' item.phone.id 'cart' %}">×</a> 
                                             </td>
 
                                             <td class="product-thumbnail">
-                                                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
+                                                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{ item.phone.image.url }}"></a>
                                             </td>
 
                                             <td class="product-name">
-                                                <a href="single-product.html">Ship Your Idea</a> 
+                                                <a href="single-product.html">{{item.phone.name}}</a> 
                                             </td>
 
                                             <td class="product-price">
-                                                <span class="amount">£15.00</span> 
+                                                <span class="amount">£{{item.phone.price}}.00</span> 
                                             </td>
 
                                             <td class="product-quantity">
                                                 <div class="quantity buttons_added">
-                                                    <input type="button" class="minus" value="-">
-                                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
-                                                    <input type="button" class="plus" value="+">
+                                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="{{item.quantity}}" min="0" step="1" onchange="document.getElementById('product-subtotal').innerText = this.value * {{item.phone.price}}">
+                                                    
                                                 </div>
                                             </td>
 
                                             <td class="product-subtotal">
-                                                <span class="amount">£15.00</span> 
+                                                <span class="amount" id="product-subtotal">£{% widthratio item.quantity 1 item.phone.price %}.00</span> 
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                         <tr>
                                             <td class="actions" colspan="6">
                                                 <div class="coupon">
@@ -151,8 +152,9 @@
                                                     <input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code">
                                                     <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
                                                 </div>
-                                                <input type="submit" value="Update Cart" name="update_cart" class="button">
-                                                <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                
+                                                    <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                                
                                             </td>
                                         </tr>
                                     </tbody>
@@ -167,7 +169,7 @@
                                 <ul class="products">
                                     <li class="product">
                                         <a href="single-product.html">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="img/product-2.jpg">
+                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="{% static 'img/product-2.jpg' %}">
                                             <h3>Ship Your Idea</h3>
                                             <span class="price"><span class="amount">£20.00</span></span>
                                         </a>
@@ -177,7 +179,7 @@
 
                                     <li class="product">
                                         <a href="single-product.html">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="img/product-4.jpg">
+                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="{% static 'img/product-4.jpg' %}">
                                             <h3>Ship Your Idea</h3>
                                             <span class="price"><span class="amount">£20.00</span></span>
                                         </a>
